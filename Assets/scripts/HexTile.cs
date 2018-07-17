@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HexTile : MonoBehaviour
 {
-    public Texture highlight;
+    static HexTile selectedTile;
 
     // Use this for initialization
     void Start()
@@ -19,14 +19,17 @@ public class HexTile : MonoBehaviour
     void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0)) {
-            Debug.LogFormat("Clicked {0}", transform.parent.name);
-            var materials = GetComponent<MeshRenderer>().materials;
-            var newMat = new Material(Shader.Find("Specular"));
-            newMat.color = Color.yellow;
-            materials[2] = newMat;
-            GetComponent<MeshRenderer>().materials = materials;
-            //var shaders = transform.parent.GetComponentsInChildren<Shader>();
-            //Debug.LogFormat("{0}", r.materials.Length);
+            if (selectedTile) { selectedTile.Highlight(Color.black); }
+            Highlight(Color.yellow);
+            selectedTile = this;
         }
+    }
+
+    void Highlight(Color color)
+    {
+        var materials = GetComponent<MeshRenderer>().materials;
+        var newMat = new Material(Shader.Find("Specular")) { color = color };
+        materials[2] = newMat;
+        GetComponent<MeshRenderer>().materials = materials;
     }
 }
