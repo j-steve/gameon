@@ -36,7 +36,9 @@ public class GameController : MonoBehaviour
 public enum GameMode
 {
     NORMAL,
-    MAP_EDIT
+    MAP_CREATE,
+    MAP_EDIT,
+    MAP
 }
 
 
