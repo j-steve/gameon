@@ -28,7 +28,7 @@ public class HexTile : MonoBehaviour
     void OnGameModeChanged(GameModeChangedEventArgs e)
     {
         if (selectedTile) {
-            selectedTile.Highlight(Color.black);
+            selectedTile.UnHighlight();
             selectedTile = null;
         }
     }
