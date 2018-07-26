@@ -6,23 +6,36 @@ public class HexTile : MonoBehaviour
 {
     static HexTile selectedTile;
 
-    // Use this for initialization
-    void Start()
-    {
 
-    }
 
-    private void Update()
+    void OnEnable()
     {
+        GameController.Active.GameModeChangedEvent += OnGameModeChanged;
     }
 
     void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0)) {
-            if (selectedTile) { selectedTile.Highlight(Color.black); }
-            Highlight(Color.yellow);
-            selectedTile = this;
+        if (GameController.Active.CurrentMode == GameMode.MAP_EDIT) {
+            if (Input.GetMouseButtonDown(0)) {
+                if (selectedTile) { selectedTile.UnHighlight(); }
+                Highlight(Color.yellow);
+                selectedTile = this;
+            }
         }
+    }
+
+    // TODO: This currently fires once per HexTile; it need fire only once.
+    void OnGameModeChanged(GameModeChangedEventArgs e)
+    {
+        if (selectedTile) {
+            selectedTile.Highlight(Color.black);
+            selectedTile = null;
+        }
+    }
+
+    void UnHighlight()
+    {
+        Highlight(Color.black);
     }
 
     void Highlight(Color color)
