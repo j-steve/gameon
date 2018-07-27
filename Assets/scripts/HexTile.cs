@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class HexTile : MonoBehaviour
 {
+    public const int HEIGHT = 2;
+
     static HexTile selectedTile;
 
     static readonly Color[] COLOR_OPTIONS = new Color[] { Color.green, Color.blue, Color.red, Color.yellow };
-    static readonly int MAX_COLOR_INDEX = COLOR_OPTIONS.Length;
+
+    public GameObject Character = null;
 
     Color currentColor = Color.green;
 

@@ -3,6 +3,25 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
+    void OnEnable()
+    {
+        foreach (HexTile tile in FindObjectsOfType(typeof(HexTile))) {
+            if (tile.Character == null) {
+                PositionOnTile(tile);
+                return;
+            }
+        }
+    }
+
+    void PositionOnTile(HexTile tile)
+    {
+        transform.position = new Vector3(
+            tile.transform.position.x,
+            tile.transform.position.y + HexTile.HEIGHT,
+            tile.transform.position.z);
+        tile.Character = gameObject;
+    }
+
     void Update()
     {
         if (!isLocalPlayer) {
